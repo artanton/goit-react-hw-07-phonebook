@@ -8,8 +8,10 @@ import {
   FormStyled,
 } from './ContactFormStyled';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../../redux/ContactsSlice';
+import { addContact } from '../../redux/operators';
 import Notiflix from 'notiflix';
+import { selectContact } from '../../redux/selectors';
+
 
 const contactSchema = Yup.object().shape({
   name: Yup.string()
@@ -18,7 +20,7 @@ const contactSchema = Yup.object().shape({
       'Insert Name and Surname please'
     )
     .required('Required'),
-  number: Yup.string()
+  phone: Yup.string()
     .matches(/^\d{12}$/, 'Please enter 12 digits')
 
     .required('Required'),
@@ -26,7 +28,7 @@ const contactSchema = Yup.object().shape({
 
 export const ContactForm = () => {
   const dispatchContact = useDispatch();
-  const contacts = useSelector(state => state.cont.contacts);
+  const contacts = useSelector(selectContact);
 
   const onAdd = (newContact, actions) => {
     const contactExist = contacts.some(
@@ -47,7 +49,7 @@ export const ContactForm = () => {
     <Formik
       initialValues={{
         name: '',
-        number: '',
+        phone: '',
       }}
       validationSchema={contactSchema}
       onSubmit={onAdd}
@@ -61,8 +63,8 @@ export const ContactForm = () => {
 
         <FieldGroup>
           Phone Number
-          <FieldStyled name="number" type="tel" placeholder="130123456789" />
-          <ErrorMessageStyled name="number" component="span" />
+          <FieldStyled name="phone" type="string" placeholder="130123456789" />
+          <ErrorMessageStyled name="phone" component="span" />
         </FieldGroup>
 
         <Button type="submit">Add Contact</Button>

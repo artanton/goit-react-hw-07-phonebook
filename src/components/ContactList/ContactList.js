@@ -1,19 +1,13 @@
 import { useSelector } from 'react-redux';
 import { ContactItem } from '../contactItem/ContactItem';
 import { PhoneNoList } from './ContactListStyled';
+import { selectSearchedContacts } from '../../redux/selectors';
 
 
 
 export const ContactList = () => {
-  const storeContacts = useSelector (state=>state.cont.contacts);
-  const searchedContact = useSelector (state=>state.filt.filter)
-
-  const actualContacts = storeContacts.filter(contact => {
-    const fitContact = contact.name
-      .toLowerCase()
-      .includes(searchedContact.toLowerCase());
-    return fitContact;
-  });
+  const actualContacts = useSelector(selectSearchedContacts);
+  console.log(actualContacts);
   return (
     <PhoneNoList>
       {actualContacts.map(contact => {
