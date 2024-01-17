@@ -12,7 +12,6 @@ import { addContact } from '../../redux/operators';
 import Notiflix from 'notiflix';
 import { selectContact } from '../../redux/selectors';
 
-
 const contactSchema = Yup.object().shape({
   name: Yup.string()
     .matches(

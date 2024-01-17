@@ -11,7 +11,6 @@ export const selectError = state => state.cont.error;
 export const selectSearchedContacts = createSelector(
   [selectContact, selectFilter],
   (storeContacts, searchedContact) => {
-
     return storeContacts.filter(contact => {
       const fitContact = contact.name
         .toLowerCase()
